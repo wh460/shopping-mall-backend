@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafuc.shopping.mapper.PmsProductMapper">
+
+    <select id="page" parameterType="com.cafuc.shopping.bean.PmsProduct" resultType="com.cafuc.shopping.bean.PmsProduct">
+        SELECT
+            p.id,
+            p.brand_id,
+            p.brand_name,
+            p.product_category_id,
+            pc.`name` AS product_category_name,
+            p.feight_template_id,
+            p.product_attribute_category_id,
+            pac.`name` AS product_attribute_category_name,
+            p.`name`,
+            p.pic,
+            p.delete_status,
+            p.publish_status,
+            p.price,
+            p.original_price
+        FROM
+            pms_product p
+                LEFT JOIN pms_brand b ON b.id = p.brand_id
+                LEFT JOIN pms_product_category pc ON pc.id = p.product_category_id
+                LEFT JOIN pms_product_attribute_category pac ON pac.id = p.product_attribute_category_id
+
+
+    </select>
+</mapper>

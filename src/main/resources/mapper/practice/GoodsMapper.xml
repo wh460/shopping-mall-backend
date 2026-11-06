@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafuc.shopping.mapper.GoodsMapper">
+    <!-- 开启二级缓存 -->
+<!--    <cache type="com.cafuc.shopping.config.MybatisRedisCache"/>-->
+
+
+    <!-- 商品列表 -->
+    <select id="getGoodsAll" parameterType="java.lang.String" resultType="com.cafuc.shopping.bean.Goods">
+        SELECT
+        *
+        FROM
+        goods
+        where 1=1
+        <if test="name != null || name !=''">
+            and name like concat('%',#{name},'%')
+        </if>
+        order by id desc
+    </select>
+
+
+    <!-- 商品新增 -->
+    <insert id="insertGoods" parameterType="com.cafuc.shopping.bean.Goods">
+        insert into goods (id,name,image,price,describeinfo)
+        values (null,#{name},#{image},#{price},#{describeinfo})
+    </insert>
+    <!-- 商品更新 -->
+    <update id="updateGoods" parameterType="com.cafuc.shopping.bean.Goods">
+        update  goods
+        set name = #{name},
+            image = #{image},
+            price = #{price},
+            describeinfo = #{describeinfo}
+        where id = #{id}
+    </update>
+
+    <!-- 商品删除 -->
+    <delete id="deleteGoodsById" parameterType="java.lang.Integer">
+        delete from goods
+
+        where id = #{id}
+    </delete>
+
+
+
+</mapper>
